@@ -1,8 +1,27 @@
 import { Box, Button, Divider, TextField, Typography, Paper } from "@mui/material";
 import { Google as GoogleIcon } from "@mui/icons-material"; // nếu chưa có thì dùng icon khác
 import MemoryIcon from "@mui/icons-material/Memory";
+import { useState } from "react";
+import type { User } from "../../core/Types";
+import { register } from "../../api/Service/authService";
 
 const RegisterPage = () => {
+  const[user, setUser] = useState<User>({
+    id: "",
+    username: "",
+    password: "",
+    email: "",
+    display_name: "",
+    avatar_url: null,
+    status:  'offline',
+    last_seen: "", // ISO string
+    created_at: "", // ISO string
+    updated_at: "", // ISO string
+  })
+  const handleRegister = () =>{
+    
+  }
+
   return (
     <Box sx={{minHeight: "100vh", display: "flex", justifyContent: "center", alignItems: "center", bgcolor: "#0d1117", }}>
       <Paper elevation={3}
@@ -38,7 +57,7 @@ const RegisterPage = () => {
             "& .MuiInputLabel-root.Mui-focused": { color: "#3b82f6" },
           }}/>
 
-        <TextField fullWidth variant="outlined" label="Email address" margin="normal"
+        <TextField fullWidth variant="outlined" label="Email address" margin="normal" 
           sx={{
             "& .MuiOutlinedInput-root": {
               bgcolor: "#0d1117",
@@ -65,7 +84,7 @@ const RegisterPage = () => {
           }}/>
 
         {/* Sign in button */}
-        <Button fullWidth variant="contained"
+        <Button fullWidth variant="contained" onClick={handleRegister}
           sx={{mt: 2, mb: 3, bgcolor: "#3b82f6", textTransform: "none", fontWeight: "bold", "&:hover": { bgcolor: "#2563eb" },}}>
           Sign up
         </Button>

@@ -1,14 +1,11 @@
 import axios from "axios"
 
-const API_URL = ""
-
+const API_URL = "http://localhost:8000"
 const userAPI = axios.create({
-    baseURL:API_URL,
-    
+    baseURL: API_URL,
 })
-
 export const getUser = () => {
-    userAPI.get("").then(res =>{
+    userAPI.get("/").then(res =>{
         res.data
     }).catch(e => console.error(e))
 }

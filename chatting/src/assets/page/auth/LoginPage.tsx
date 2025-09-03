@@ -1,8 +1,15 @@
 import { Box, Button, Divider, TextField, Typography, Paper } from "@mui/material";
-import { Google as GoogleIcon } from "@mui/icons-material"; // nếu chưa có thì dùng icon khác
-import MemoryIcon from "@mui/icons-material/Memory"; // icon chip giống trong ảnh
+import { Google as GoogleIcon } from "@mui/icons-material"; 
+import MemoryIcon from "@mui/icons-material/Memory"; 
 
 const LoginPage = () => {
+
+
+
+  const handleLogin = () =>{
+
+  }
+
   return (
     <Box sx={{minHeight: "100vh", display: "flex", justifyContent: "center", alignItems: "center", bgcolor: "#0d1117", }}>
       <Paper elevation={3}
@@ -54,7 +61,7 @@ const LoginPage = () => {
           }}/>
 
         {/* Sign in button */}
-        <Button fullWidth variant="contained"
+        <Button fullWidth variant="contained" onClick={handleLogin}
           sx={{mt: 2, mb: 3, bgcolor: "#3b82f6", textTransform: "none", fontWeight: "bold", "&:hover": { bgcolor: "#2563eb" },}}>
           Sign in
         </Button>
