@@ -4,8 +4,11 @@ import MemoryIcon from "@mui/icons-material/Memory";
 import { useState } from "react";
 import type { User } from "../../core/Types";
 import { register } from "../../api/Service/authService";
+import { Link, Navigate, useNavigate } from "react-router-dom";
+import LoginPage from "./LoginPage";
 
 const RegisterPage = () => {
+    const navigate = useNavigate()
   const[user, setUser] = useState<User>({
     id: "",
     username: "",
@@ -18,8 +21,10 @@ const RegisterPage = () => {
     created_at: "", // ISO string
     updated_at: "", // ISO string
   })
-  const handleRegister = () =>{
-    
+  const handleRegister = async () =>{
+    const data = await register(user)
+    setUser( data)
+    navigate("/")
   }
 
   return (
@@ -39,12 +44,12 @@ const RegisterPage = () => {
         <Typography variant="body2" color="gray" mb={3}>
           Already have an account?{" "}
           <Typography component="span" sx={{ color: "#3b82f6", cursor: "pointer" }}>
-            Sign up
+            <Link to={"/"}>Sign up</Link>
           </Typography>
         </Typography>
 
         {/* Input fields */}
-        <TextField fullWidth variant="outlined" label="Full name" margin="normal"
+        <TextField fullWidth variant="outlined" label="Full name" margin="normal" onChange={e => {setUser({...user, display_name:e.target.value})}}
           sx={{
             "& .MuiOutlinedInput-root": {
               bgcolor: "#0d1117",
@@ -57,7 +62,7 @@ const RegisterPage = () => {
             "& .MuiInputLabel-root.Mui-focused": { color: "#3b82f6" },
           }}/>
 
-        <TextField fullWidth variant="outlined" label="Email address" margin="normal" 
+        <TextField fullWidth variant="outlined" label="Email address" margin="normal" onChange={e =>{setUser({...user, email: e.target.value})}}
           sx={{
             "& .MuiOutlinedInput-root": {
               bgcolor: "#0d1117",
@@ -70,7 +75,7 @@ const RegisterPage = () => {
             "& .MuiInputLabel-root.Mui-focused": { color: "#3b82f6" },
           }}/>
 
-        <TextField fullWidth type="password" variant="outlined" label="Password" margin="normal"
+        <TextField fullWidth type="password" variant="outlined" label="Password" margin="normal" onChange={e=>{setUser({...user, password:e.target.value})}}
           sx={{
             "& .MuiOutlinedInput-root": {
               bgcolor: "#0d1117",

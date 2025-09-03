@@ -1,32 +1,46 @@
 import axios from "axios"
 import type { User } from "../../core/Types"
 
-const API_URL = "http://localhost:8000"
+const API_URL = "http://localhost:8000/auth"
 const userAPI = axios.create({
     baseURL: API_URL,
 })
 export const getUser = async () => {
-    userAPI.get("/read_me").then(res =>
-        res.data
-    ).catch(e => console.error(e))
+    try{
+        const response = await userAPI.get("/read_me")
+        return response.data
+    }catch(e){
+        console.error(e)
+        throw e
+    }
 }
 
 export const login = async (user: User) =>{
-    userAPI.post("/token", 
-        new URLSearchParams({
-        username: user.username,
-        password: user.password
-    }), 
-    {
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    }).then(response => response.data).catch(e => console.error(e))
+    try {
+        const response = await userAPI.post("/token", new URLSearchParams({
+            username: user.username,
+            password: user.password
+        }), {
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        })
+        return response.data
+    } catch (error) {
+        console.error(error)
+        throw error
+    }
 }
 
 export const register = async (user: User) =>{
-    userAPI.post("/register", {
-        username: user.username,
-        password: user.password,
-        email: user.email,
-        display_name: user.display_name
-    }).then(response => response.data).catch(e => console.error(e))
+    try {
+        const response = await userAPI.post("/register",{
+            username: user.username,
+            password: user.password,
+            email: user.email,
+            display_name: user.display_name
+        })
+        return response.data
+    } catch (error) {
+        console.error(error)
+        throw error
+    }
 }
