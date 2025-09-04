@@ -24,8 +24,11 @@ const LoginPage = () => {
 
   const handleLogin = async () =>{
     const data = await login(user)
-    setUser(data)
-    navigate("")
+    const access_token = data.access_token
+    if(access_token){
+      localStorage.setItem("access_token", access_token)
+    }
+    navigate("/chatbox")
   }
 
   return (

@@ -5,9 +5,13 @@ const API_URL = "http://localhost:8000/auth"
 const userAPI = axios.create({
     baseURL: API_URL,
 })
-export const getUser = async () => {
+export const getUser = async (token: string | null) => {
     try{
-        const response = await userAPI.get("/read_me")
+        const response = await userAPI.get("/read_me", {
+            headers:{
+                Authorization: `Bearer ${token}`,
+            }
+        })
         return response.data
     }catch(e){
         console.error(e)
@@ -15,7 +19,7 @@ export const getUser = async () => {
     }
 }
 
-export const login = async (user: User) =>{
+export const login = async (user: User ) =>{
     try {
         const response = await userAPI.post("/token", new URLSearchParams({
             username: user.username,

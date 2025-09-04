@@ -49,7 +49,7 @@ const RegisterPage = () => {
         </Typography>
 
         {/* Input fields */}
-        <TextField fullWidth variant="outlined" label="Full name" margin="normal" onChange={e => {setUser({...user, display_name:e.target.value})}}
+        <TextField fullWidth variant="outlined" label="Username" margin="normal" onChange={e => {setUser({...user, username:e.target.value})}}
           sx={{
             "& .MuiOutlinedInput-root": {
               bgcolor: "#0d1117",
@@ -61,6 +61,18 @@ const RegisterPage = () => {
             "& .MuiInputLabel-root": { color: "gray" },
             "& .MuiInputLabel-root.Mui-focused": { color: "#3b82f6" },
           }}/>
+        <TextField fullWidth variant="outlined" label="Display name" margin="normal" onChange={e => {setUser({...user, display_name:e.target.value})}}
+          sx={{
+            "& .MuiOutlinedInput-root": {
+              bgcolor: "#0d1117",
+              color: "#fff",
+              "& fieldset": { borderColor: "gray" },
+              "&:hover fieldset": { borderColor: "#3b82f6" },
+              "&.Mui-focused fieldset": { borderColor: "#3b82f6" },
+            },
+            "& .MuiInputLabel-root": { color: "gray" },
+            "& .MuiInputLabel-root.Mui-focused": { color: "#3b82f6" },
+        }}/>
 
         <TextField fullWidth variant="outlined" label="Email address" margin="normal" onChange={e =>{setUser({...user, email: e.target.value})}}
           sx={{
