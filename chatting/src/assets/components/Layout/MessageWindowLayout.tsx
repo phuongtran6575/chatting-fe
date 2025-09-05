@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
 import { Box } from "@mui/material";
 import Sidebar from "../Sidebar";
 import ChatHeader from "../Header";
@@ -8,11 +8,13 @@ import MessageComposer from "../MessageComposer";
 
 const MessageWindowLayout = () => {
   const [messages, setMessages] = useState<string[]>([]);
-  const [input, setInput] = useState("");
+  const [input, setInput] = useState<string>("");
   const [ws, setWS] = useState<WebSocket|null>(null)
+  const [clientId, setClientId] = useState<number>(0)
   useEffect(()=>{
-    const clienId = Math.floor(Math.random() * 10000);
-    const socket = new WebSocket(`ws://localhost:8000/ws/${clienId}`);
+    const clientId = Math.floor(Math.random() * 10000);
+    setClientId(clientId)
+    const socket = new WebSocket(`ws://localhost:8000/message/ws`);
     socket.onopen = () => {
       console.log("✅ WebSocket connected");
     };
@@ -30,10 +32,17 @@ const MessageWindowLayout = () => {
       socket.close();
     };
     
-  })
-  const sendMessage = () => {
+  }, [])
+
+  const handleOpenEmoji = () =>{
+    console.log("open emoji panel")
+  }
+
+  const handleSendMessage = () => {
     if (ws && input.trim() !== "") {
+      console.log(input)
       ws.send(input); // gửi message lên server
+      
       setInput("");
     }
   };
@@ -49,11 +58,11 @@ const MessageWindowLayout = () => {
 
         {/* Chat area có thể cuộn */}
         
-        <ChatArea />
+        <ChatArea messages={messages} clientId={clientId} />
         
 
         {/* Composer cố định */}
-        <MessageComposer />
+        <MessageComposer value={input} onChange={e => setInput(e.target.value)} handleSend={handleSendMessage} handleOpenEmoji={handleOpenEmoji} />
       </Box>
     </Box>
   );
